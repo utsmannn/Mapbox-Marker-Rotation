@@ -1,4 +1,20 @@
-package com.utsman.mapbox
+/*
+ * Copyright 2019 Muhammad Utsman
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.utsman.mapbox.map
 
 import android.animation.ObjectAnimator
 import android.animation.ValueAnimator
@@ -15,6 +31,8 @@ import com.mapbox.mapboxsdk.maps.Style
 import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
+import com.utsman.mapbox.R
+import com.utsman.mapbox.latLngEvaluator
 
 class MapMarkerMoveOnClick(private val context: Context) : OnMapReadyCallback {
 
@@ -41,7 +59,9 @@ class MapMarkerMoveOnClick(private val context: Context) : OnMapReadyCallback {
 
             mapboxMap.animateCamera(CameraUpdateFactory.newCameraPosition(position))
 
-            val markerBitmap = BitmapFactory.decodeResource(context.resources, R.drawable.mapbox_marker_icon_default)
+            val markerBitmap = BitmapFactory.decodeResource(context.resources,
+                R.drawable.mapbox_marker_icon_default
+            )
             style.addImage("marker", markerBitmap)
 
             style.addSource(jsonSource)
