@@ -1,7 +1,6 @@
 package com.utsman.mapbox
 
 import android.animation.ObjectAnimator
-import android.animation.TypeEvaluator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.BitmapFactory
@@ -17,20 +16,10 @@ import com.mapbox.mapboxsdk.style.layers.PropertyFactory
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource
 
-class MapReadyStart(private val context: Context) : OnMapReadyCallback {
+class MapMarkerMoveOnClick(private val context: Context) : OnMapReadyCallback {
 
     private var animator: ValueAnimator? = null
     private var currentLatLng = LatLng(-6.21462, 106.84513)
-
-    private val latLngEvaluator = object : TypeEvaluator<LatLng> {
-        val latLng = LatLng()
-
-        override fun evaluate(f: Float, startLatLng: LatLng, endLatlng: LatLng): LatLng {
-            latLng.latitude = startLatLng.latitude + (endLatlng.latitude - startLatLng.latitude) * f
-            latLng.longitude = startLatLng.longitude + (endLatlng.longitude - startLatLng.longitude) * f
-            return latLng
-        }
-    }
 
     private fun animatorUpdateListener(jsonSource: GeoJsonSource) : ValueAnimator.AnimatorUpdateListener {
         return ValueAnimator.AnimatorUpdateListener { value ->
@@ -60,6 +49,7 @@ class MapReadyStart(private val context: Context) : OnMapReadyCallback {
             val symbolLayer = SymbolLayer("layer-1", "jkt").apply {
                 withProperties(
                     PropertyFactory.iconImage("marker"),
+                    PropertyFactory.iconRotate(90f),
                     PropertyFactory.iconIgnorePlacement(true),
                     PropertyFactory.iconAllowOverlap(true))
             }
